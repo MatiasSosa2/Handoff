@@ -27,7 +27,17 @@
               l.pathname.slice(0, -1) + decoded + l.hash
           );
         }
-      }(window.location))
+      }(window.location));
+      
+      // Force scroll to top on load
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          window.scrollTo(0, 0);
+        }, 0);
+      });
     </script>
     <!-- End Single Page Apps for GitHub Pages -->
     
