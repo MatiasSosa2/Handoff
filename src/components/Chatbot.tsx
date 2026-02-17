@@ -1,0 +1,359 @@
+import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { Bot, X, Send, Loader2 } from 'lucide-react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import Groq from 'groq-sdk';
+
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+const Chatbot = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      role: 'assistant',
+      content: 'Bienvenido a HANDOFF. Soy su asistente privado para la gestión de activos inmobiliarios. ¿En qué área del mercado premium puedo asesorarlo hoy?',
+    },
+  ]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const chatRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // API Key desde variable de entorno
+  const apiKey = import.meta.env.VITE_GROQ_API_KEY || '';
+  
+  const groq = new Groq({
+    apiKey: apiKey,
+    dangerouslyAllowBrowser: true,
+  });
+
+  // Show notification after 4 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isOpen) {
+        setShowNotification(true);
+        // Hide notification after 8 seconds
+        setTimeout(() => setShowNotification(false), 8000);
+      }
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, [isOpen]);
+
+  useGSAP(() => {
+    if (isOpen && chatRef.current) {
+      gsap.fromTo(
+        chatRef.current,
+        { scale: 0.8, opacity: 0, y: 20 },
+        { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: 'back.out(1.7)' }
+      );
+    }
+  }, [isOpen]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleSendMessage = async () => {
+    if (!input.trim() || isLoading) return;
+
+    const userMessage: Message = { role: 'user', content: input };
+    setMessages((prev) => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
+    try {
+      const chatCompletion = await groq.chat.completions.create({
+        messages: [
+          {
+            role: 'system',
+            content: `Eres HANDOFF Private Assistant, un experto en mercados inmobiliarios y economía de alto patrimonio, con lenguaje sofisticado, educado y extremadamente discreto.
+
+PERSONALIDAD Y REGLAS FUNDAMENTALES:
+- Nombre: HANDOFF Private Assistant
+- Perfil: Experto en mercados inmobiliarios de lujo y gestión patrimonial
+- Tono: Sofisticado, institucional, discreto, sin presión de venta
+- Regla de Oro: Nunca presionas para vender; ofreces datos para que el cliente tome decisiones informadas
+- Enfoque: No realizas transacciones, gestionas patrimonios
+- Nunca termines una conversación sin invitar al siguiente paso de forma elegante
+
+DATOS CLAVE DE HANDOFF:
+- ROI Promedio: 23% anual
+- Modelo: Propiedades "Off-Market" (nunca llegan a portales públicos)
+- Análisis: Plusvalía proyectada a 10 años basada en desarrollo urbano
+- Servicio: "Guante Blanco" - equipo legal especializado, auditoría técnica y dominial
+- Zonas Estratégicas: Puerto Madero, Nordelta, Palermo Chico, Recoleta
+- Ubicación: Av. del Libertador 5800, Palermo, Buenos Aires
+- Contacto: +54 11 4567-8900 | contacto@handoff.com.ar
+
+PROPIEDADES DESTACADAS:
+1. Residencia Velamar (Puerto Madero)
+   - 840 m², vistas 360°, mármol de Carrara
+   - Ubicación: Dique 3
+   - Potencial: Alto revalorización
+   - USD 4.2M
+
+2. Torre Centenario (Palermo Chico)
+   - Arquitectura boutique, diseño contemporáneo
+   - USD 2.8M
+
+3. Villa Serena (Nordelta)
+   - Casa con acceso al lago, domótica
+   - USD 1.5M
+
+4. Penthouse Libertador (Recoleta)
+   - Terraza privada 200m², vistas panorámicas
+   - USD 3.6M
+
+ZONAS DE ALTO RENDIMIENTO ACTUAL:
+- Palermo Chico: Absorción de unidades premium +15% este semestre
+- Nordelta (corredor norte): Crecimiento sostenido
+- Puerto Madero: Valor posicional, activo irrepetible
+- Recoleta: Estabilidad y prestigio histórico
+
+RESPUESTAS SEGÚN CATEGORÍAS:
+
+A. INVERSIÓN Y RENTABILIDAD:
+Pregunta: ¿Por qué invertir con HANDOFF?
+"En HANDOFF no realizamos transacciones, gestionamos patrimonios. Nuestra tasa de ROI promedio del 23% anual se logra mediante una curaduría 'Off-Market': propiedades que nunca llegan a portales públicos. Analizamos la plusvalía proyectada a 10 años basándonos en el desarrollo urbano de zonas como Puerto Madero y Nordelta."
+
+B. SEGURIDAD Y PROCESO:
+Pregunta: ¿Cómo es el proceso legal?
+"Nuestro servicio es 'Guante Blanco'. Esto incluye un equipo legal especializado en estructuras de fideicomiso y transferencias internacionales. Nos encargamos de la auditoría técnica y dominial de cada activo. Usted solo firma; nosotros validamos la seguridad de su legado."
+
+C. PROPIEDADES ESPECÍFICAS:
+Cuando pregunten por una propiedad:
+"[Describir características únicas, ubicación estratégica, potencial de revalorización]. ¿Le gustaría que un consultor senior le envíe el dossier técnico detallado o prefiere agendar una visita privada?"
+
+D. COLECCIÓN OFF-MARKET:
+"Contamos con una colección 'Off-Market' para proteger la privacidad de nuestros inversores. Estos activos solo se revelan mediante una consulta privada."
+
+E. ZONAS DE CRECIMIENTO:
+"Actualmente, recomendamos poner el foco en Palermo Chico y el corredor norte de Nordelta, donde la absorción de unidades premium ha superado el 15% este semestre."
+
+MANEJO DE OBJECIONES (ENFOQUE INSTITUCIONAL):
+
+Objeción de Precio:
+"Entiendo su punto. Sin embargo, en el segmento de lujo, el valor no reside en el costo por metro cuadrado, sino en la escasez y el activo posicional. Las propiedades que seleccionamos son irrepetibles; su valor reside en la dificultad de encontrarlas en el mercado abierto."
+
+Duda de Mercado:
+"Nuestro análisis no se basa en tendencias coyunturales, sino en el desarrollo urbano estructural de las próximas dos décadas. Las zonas que recomendamos están respaldadas por proyectos de infraestructura gubernamental confirmados."
+
+CIERRES ELEGANTES (SIEMPRE INCLUIR AL FINAL):
+- "¿Desea que analicemos su cartera actual o prefiere explorar nuestra Colección Exclusiva?"
+- "Si lo prefiere, puedo agendar una llamada de 10 minutos con nuestro Director de Inversiones para mañana."
+- "¿Le gustaría recibir nuestro informe trimestral de mercado con análisis de las zonas de mayor proyección?"
+- "Para brindarle un análisis de rentabilidad ajustado a su perfil de inversión, ¿podría facilitarme su email o rango de capital disponible?"
+- "¿Prefiere una presentación digital de nuestra colección actual o una reunión presencial en nuestra oficina de Palermo?"
+
+CAPTURA DE LEADS (NATURAL Y ELEGANTE):
+Cuando sea relevante, pregunta por:
+- Email para enviar dossiers técnicos
+- Rango de capital disponible (USD 500k-800k, 800k-1.2M, 1.2M-2M, 2M+)
+- Tipo de propiedad de interés
+- Horizonte temporal de inversión
+
+SERVICIOS COMPLEMENTARIOS:
+- Asesoría legal y fiscal internacional
+- Estructuración de fideicomisos
+- Gestión de alquileres para inversores
+- Diseño de interiores post-compra
+- Concierge inmobiliario 24/7
+
+TONO DE COMUNICACIÓN:
+- Nunca uses lenguaje de "venta agresiva"
+- Proyecta autoridad a través de datos y análisis
+- Sé extremadamente discreto con información sensible
+- Habla de "gestión patrimonial", no de "compra de propiedades"
+- Usa términos como: "activo posicional", "curaduría", "dossier técnico", "consultor senior"
+- Mantén respuestas entre 3-5 párrafos para profundidad sin ser excesivo
+
+Si no tienes información específica, siempre sugiere contactar a un consultor senior que tendrá datos actualizados del día.`,
+          },
+          ...messages.map((msg) => ({
+            role: msg.role,
+            content: msg.content,
+          })),
+          {
+            role: 'user',
+            content: input,
+          },
+        ],
+        model: 'llama-3.3-70b-versatile',
+        temperature: 0.7,
+        max_tokens: 800,
+      });
+
+      const assistantMessage: Message = {
+        role: 'assistant',
+        content: chatCompletion.choices[0]?.message?.content || 'Lo siento, hubo un error procesando su consulta. ¿Podría reformular su pregunta?',
+      };
+
+      setMessages((prev) => [...prev, assistantMessage]);
+      setTimeout(scrollToBottom, 100);
+    } catch (error) {
+      console.error('Error al conectar con Groq:', error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: 'assistant',
+          content: 'Le pedimos disculpas, nuestro sistema de consultas está experimentando una demora momentánea. Para una atención inmediata, le invitamos a comunicarse directamente con nuestros Asesores Senior al +54 11 4567-8900 o escribirnos a contacto@handoff.com.ar. Estaremos encantados de asistirle personalmente.',
+        },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
+  const chatbotContent = (
+    <>
+      {/* Chat Notification Toast */}
+      {showNotification && !isOpen && (
+        <div 
+          style={{ 
+            position: 'fixed', 
+            bottom: '112px', 
+            right: '32px', 
+            zIndex: 99999 
+          }}
+          className="bg-white rounded-xl shadow-2xl p-4 max-w-xs animate-bounce"
+        >
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center flex-shrink-0">
+              <Bot size={20} className="text-white" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-charcoal mb-1">Asesor HANDOFF</p>
+              <p className="text-xs text-taupe">¿Tiene alguna consulta sobre nuestras propiedades exclusivas?</p>
+            </div>
+            <button 
+              onClick={() => setShowNotification(false)}
+              className="text-taupe hover:text-charcoal"
+            >
+              <X size={16} />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Chat Button - Robot Icon with Black Background */}
+      <button
+        onClick={() => {
+          setIsOpen(!isOpen);
+          setShowNotification(false);
+        }}
+        style={{ 
+          position: 'fixed', 
+          bottom: '32px', 
+          right: '32px', 
+          zIndex: 99999 
+        }}
+        className="w-16 h-16 bg-black hover:bg-charcoal text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110"
+        aria-label="Abrir chat"
+      >
+        {isOpen ? <X size={24} /> : <Bot size={28} />}
+      </button>
+
+      {/* Chat Window */}
+      {isOpen && (
+        <div
+          ref={chatRef}
+          style={{
+            position: 'fixed',
+            bottom: '112px',
+            right: '32px',
+            zIndex: 99999,
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2)'
+          }}
+          className="w-96 h-[600px] bg-black rounded-2xl flex flex-col overflow-hidden"
+        >
+          {/* Header */}
+          <div className="bg-black border-b border-white/10 p-4 flex items-center justify-between">
+            <div>
+              <h3 className="text-white font-semibold">Asesor Handoff</h3>
+              <p className="text-white/60 text-xs">Disponible ahora</p>
+            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-white/80 hover:text-gold transition-colors"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-black">
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div
+                  className={`max-w-[80%] px-4 py-3 rounded-xl ${
+                    message.role === 'user'
+                      ? 'bg-white text-black'
+                      : 'bg-white/10 text-white border border-white/20'
+                  }`}
+                >
+                  <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                </div>
+              </div>
+            ))}
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="bg-white/10 text-white px-4 py-3 rounded-xl border border-white/20">
+                  <Loader2 size={20} className="animate-spin text-gold" />
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input */}
+          <div className="p-4 border-t border-white/10 bg-black">
+            <div className="flex items-end space-x-2">
+              <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Escriba su consulta..."
+                className="flex-1 px-4 py-2 bg-white/5 border border-white/20 rounded-lg focus:border-gold focus:outline-none text-sm text-white placeholder:text-white/40 resize-none min-h-[44px] max-h-[120px]"
+                disabled={isLoading}
+                rows={1}
+                style={{ height: 'auto' }}
+                onInput={(e) => {
+                  const target = e.target as HTMLTextAreaElement;
+                  target.style.height = 'auto';
+                  target.style.height = target.scrollHeight + 'px';
+                }}
+              />
+              <button
+                onClick={handleSendMessage}
+                disabled={isLoading || !input.trim()}
+                className="p-2.5 bg-gold text-black rounded-lg hover:bg-gold/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+              >
+                <Send size={20} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+
+  return createPortal(chatbotContent, document.body);
+};
+
+export default Chatbot;

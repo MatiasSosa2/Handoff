@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Critical Performance Optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="dns-prefetch" href="https://grainy-gradients.vercel.app" />
+    <link rel="dns-prefetch" href="https://api.groq.com" />
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" as="image" href="https://grainy-gradients.vercel.app/noise.svg" fetchpriority="high" />
+    <link rel="modulepreload" href="/src/main.tsx" />
+    
+    <!-- Resource Hints -->
+    <link rel="prefetch" as="script" href="/src/pages/Properties.tsx" />
+    <link rel="prefetch" as="script" href="/src/pages/Contact.tsx" />
+    
+    <meta name="description" content="HANDOF - Gestión de activos inmobiliarios de alto patrimonio" />
+    <meta name="theme-color" content="#262626" />
+    <title>HANDOF | Inversiones Inmobiliarias de Lujo</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
