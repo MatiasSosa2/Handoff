@@ -15,29 +15,28 @@ export default defineConfig({
     // Optimize bundle splitting
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'gsap-vendor': ['gsap', '@gsap/react'],
-          'ui-vendor': ['lucide-react'],
-          'lenis-vendor': ['lenis'],
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+              return 'react-vendor';
+            }
+            if (id.includes('gsap')) {
+              return 'gsap-vendor';
+            }
+            if (id.includes('lucide-react')) {
+              return 'ui-vendor';
+            }
+            if (id.includes('lenis')) {
+              return 'lenis-vendor';
+            }
+          }
         },
       },
     },
     // Increase chunk size warning limit
     chunkSizeWarningLimit: 1000,
-    // Minify with terser for better compression
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        passes: 2,
-        pure_funcs: ['console.log', 'console.info'],
-      },
-      mangle: {
-        safari10: true,
-      },
-    },
+    // Minify with esbuild (faster and included by default)
+    minify: 'esbuild',
     // Enable CSS code splitting
     cssCodeSplit: true,
     // Smaller chunks for better caching

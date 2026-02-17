@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const container = useRef();
+  const container = useRef<HTMLElement>(null);
 
   const slides = [
     {

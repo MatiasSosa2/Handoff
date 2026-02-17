@@ -1,11 +1,12 @@
 import { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Points, PointMaterial } from '@react-three/drei';
+// import { Canvas } from '@react-three/fiber';
+// import { Points, PointMaterial } from '@react-three/drei';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import * as THREE from 'three';
+// import * as THREE from 'three';
 import { Building2, TrendingUp, MapPin, Calendar } from 'lucide-react';
 
+/* Component disabled for now
 const PointCloud = () => {
   const pointsRef = useRef<THREE.Points>(null);
   
@@ -24,13 +25,6 @@ const PointCloud = () => {
     positions[i3 + 2] = Math.sin(theta) * radius;
   }
 
-  // Slow rotation animation
-  useFrame((state) => {
-    if (pointsRef.current) {
-      pointsRef.current.rotation.y = state.clock.getElapsedTime() * 0.08;
-    }
-  });
-
   return (
     <Points ref={pointsRef} positions={positions} stride={3} frustumCulled={false}>
       <PointMaterial
@@ -44,6 +38,7 @@ const PointCloud = () => {
     </Points>
   );
 };
+*/
 
 const AssetScanner = () => {
   const containerRef = useRef<HTMLDivElement>(null);

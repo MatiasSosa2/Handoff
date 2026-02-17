@@ -1,9 +1,8 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { TrendingUp, BarChart3, Shield, Home, MapPin, DollarSign } from 'lucide-react';
-import SignatureSVG from '../components/SignatureSVG';
+import { TrendingUp, Home, MapPin, DollarSign } from 'lucide-react';
 import InvestmentAnalytics from '../components/InvestmentAnalytics';
 import AssetScanner from '../components/AssetScanner';
 import RiskProfileSelector from '../components/RiskProfileSelector';
@@ -13,9 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 const Investment = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
-  const velocityRef = useRef<HTMLDivElement>(null);
   const [activeSection, setActiveSection] = useState('hero');
-  const [scrollY, setScrollY] = useState(0);
 
   // Sparkles effect
   const generateSparkles = () => {
@@ -29,15 +26,6 @@ const Investment = () => {
   };
 
   const sparkles = generateSparkles();
-
-  // Handle scroll for velocity text
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const zones = [
     { name: 'Puerto Madero', roi: '+28%', image: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&q=80' },

@@ -43,7 +43,7 @@ const InvestmentAnalytics = () => {
     // Animate counter
     const counters = gsap.utils.toArray<HTMLElement>('.roi-counter');
     counters.forEach((counter) => {
-      const target = parseFloat(counter.getAttribute('data-target') || '0');
+      // const target = parseFloat(counter.getAttribute('data-target') || '0');
       gsap.from(counter, {
         textContent: 0,
         duration: 2,

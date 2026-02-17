@@ -37,7 +37,7 @@ const RiskProfileSelector = () => {
   }, [riskLevel]);
 
   const generateLiquidPath = (value: number) => {
-    const width = 100;
+    // const width = 100;
     const height = 6;
     const progress = value;
     

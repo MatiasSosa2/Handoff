@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { properties } from '../data/properties';
 import { MapPin, Home, X, SlidersHorizontal } from 'lucide-react';
