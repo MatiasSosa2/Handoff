@@ -612,10 +612,6 @@ const FinalCTA = () => {
 const HomeComponent = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   useGSAP(() => {
     // Smooth scroll animation
     gsap.utils.toArray('section').forEach((section: any) => {
