@@ -6,10 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Critical Performance Optimizations -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://images.unsplash.com" />
+    <!-- DNS Prefetch for faster domain resolution -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
     <link rel="dns-prefetch" href="https://api.groq.com" />
+    
+    <!-- Preconnect for critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Preload critical fonts with optimized subset -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" />
+    </noscript>
     
     <!-- Start Single Page Apps for GitHub Pages -->
     <script type="text/javascript">
@@ -36,12 +48,24 @@
           window.scrollTo(0, 0);
         }, 0);
       });
+      
+      // Early optimization hints
+      if (window.performance && window.performance.mark) {
+        performance.mark('html_parsed');
+      }
     </script>
     <!-- End Single Page Apps for GitHub Pages -->
     
-    <meta name="description" content="HANDOF - Gestión de activos inmobiliarios de alto patrimonio" />
+    <meta name="description" content="HANDOFF - Gestión de activos inmobiliarios de alto patrimonio con ROI del 23% anual. Propiedades exclusivas off-market en Puerto Madero, Nordelta, Palermo Chico y Recoleta." />
+    <meta name="keywords" content="inversión inmobiliaria, propiedades de lujo, ROI inmobiliario, Puerto Madero, Nordelta, Palermo Chico, activos inmobiliarios" />
     <meta name="theme-color" content="#262626" />
-    <title>HANDOF | Inversiones Inmobiliarias de Lujo</title>
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HANDOFF | Inversiones Inmobiliarias de Lujo" />
+    <meta property="og:description" content="Gestión patrimonial de activos inmobiliarios premium con ROI del 23% anual" />
+    
+    <title>HANDOFF | Inversiones Inmobiliarias de Lujo</title>
   </head>
   <body>
     <div id="root"></div>

@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import { Instagram, Linkedin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const Footer = () => {
+const Footer = memo(() => {
   return (
     <footer className="bg-black text-white">
       {/* Main Footer Content */}
@@ -169,6 +170,8 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
+});
+
+Footer.displayName = 'Footer';
 
 export default Footer;

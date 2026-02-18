@@ -11,8 +11,9 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Chatbot from './components/Chatbot';
 import { preloadCriticalAssets } from './utils/imagePreloader';
+import { usePrefetch } from './hooks/usePrefetch';
 
-// Lazy load pages for better performance
+// Lazy load pages for optimal performance
 const Home = lazy(() => import('./pages/Home'));
 const PropertyDetail = lazy(() => import('./pages/PropertyDetail'));
 const Investment = lazy(() => import('./pages/Investment'));
@@ -22,8 +23,24 @@ const Contact = lazy(() => import('./pages/Contact'));
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Loading component optimizado
+const PageLoader = () => (
+  <div className="min-h-screen bg-parchment flex items-center justify-center">
+    <div className="w-16 h-16 border-4 border-gold/30 border-t-gold rounded-full animate-spin" 
+         style={{ willChange: 'transform' }} />
+  </div>
+);
+
 function App() {
+  // Prefetch inteligente de rutas
+  usePrefetch();
+
   useEffect(() => {
+    // Performance mark
+    if (window.performance && typeof window.performance.mark === 'function') {
+      performance.mark('app_mounted');
+    }
+
     // Preload critical images immediately
     preloadCriticalAssets();
 
@@ -55,11 +72,7 @@ function App() {
       <Chatbot />
       <div className="min-h-screen">
         <Breadcrumbs />
-        <Suspense fallback={
-          <div className="min-h-screen bg-parchment flex items-center justify-center">
-            <div className="w-16 h-16 border-4 border-gold/30 border-t-gold rounded-full animate-spin" />
-          </div>
-        }>
+        <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={
             <PageTransition>
