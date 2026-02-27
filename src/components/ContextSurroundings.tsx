@@ -179,10 +179,10 @@ const ContextSurroundings = () => {
                 className="h-full w-full"
                 style={{ background: '#1a1a1a' }}
               >
-                {/* Stadia Maps - Alidade Smooth Dark (Gratuito) */}
+                {/* CartoDB Dark Matter - Gratuito sin API key */}
                 <TileLayer
-                  attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>'
-                  url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+                  attribution='&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                  url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
                   maxZoom={20}
                 />
                 

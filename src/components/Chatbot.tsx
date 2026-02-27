@@ -16,7 +16,7 @@ const Chatbot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Bienvenido a HANDOFF. Soy su asistente privado para la gestión de activos inmobiliarios. ¿En qué área del mercado premium puedo asesorarlo hoy?',
+      content: 'Bienvenido a HANDOFF. ¿En qué puedo asesorarlo?',
     },
   ]);
   const [input, setInput] = useState('');
@@ -127,7 +127,7 @@ Una oración directa que responda la pregunta + dato clave o llamado a acción d
         ...prev,
         {
           role: 'assistant',
-          content: 'Le pedimos disculpas, nuestro sistema de consultas está experimentando una demora momentánea. Para una atención inmediata, le invitamos a comunicarse directamente con nuestros Asesores Senior al +54 11 4567-8900 o escribirnos a contacto@handoff.com.ar. Estaremos encantados de asistirle personalmente.',
+          content: 'Sistema en pausa. Contáctenos al +54 11 4567-8900 o contacto@handoff.com.ar.',
         },
       ]);
     } finally {

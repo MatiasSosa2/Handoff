@@ -8,14 +8,28 @@ import gsap from 'gsap';
 const Navbar = memo(() => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
+  const [navTheme, setNavTheme] = useState<'light' | 'dark'>('light');
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      // Detect if scrolled past typical hero height (600-700px)
       const scrollPosition = window.scrollY;
       setIsScrolledPastHero(scrollPosition > 600);
+
+      // Detectar tema de la sección actual
+      const sections = document.querySelectorAll('[data-navbar-theme]');
+      let currentTheme: 'light' | 'dark' = 'light';
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 80) {
+          currentTheme = (section.getAttribute('data-navbar-theme') as 'light' | 'dark') || 'light';
+        }
+      });
+      setNavTheme(currentTheme);
     };
+
+    // Detectar el tema al montar también
+    handleScroll();
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -74,7 +88,9 @@ const Navbar = memo(() => {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 shadow-sm transition-all duration-500 ${
-      isScrolledPastHero ? 'bg-white' : 'bg-parchment/95'
+      navTheme === 'dark'
+        ? 'bg-[#0a0a0a]'
+        : isScrolledPastHero ? 'bg-white' : 'bg-parchment/95'
     }`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
@@ -82,7 +98,9 @@ const Navbar = memo(() => {
           <div className="nav-logo flex items-center">
             <Link
               to="/"
-              className="text-2xl font-bold tracking-tight text-olive hover:text-gold transition-colors duration-300"
+              className={`text-2xl font-bold tracking-tight hover:text-gold transition-colors duration-300 ${
+                navTheme === 'dark' ? 'text-white' : 'text-olive'
+              }`}
             >
               HANDOFF
             </Link>
@@ -97,7 +115,9 @@ const Navbar = memo(() => {
                 className={`nav-link text-sm font-medium transition-colors duration-300 tracking-wide ${
                   location.pathname === link.href
                     ? 'text-gold'
-                    : 'text-charcoal hover:text-gold'
+                    : navTheme === 'dark'
+                      ? 'text-white/80 hover:text-gold'
+                      : 'text-charcoal hover:text-gold'
                 }`}
               >
                 {link.name}
@@ -109,7 +129,9 @@ const Navbar = memo(() => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-olive hover:text-gold transition-colors"
+            className={`md:hidden hover:text-gold transition-colors ${
+              navTheme === 'dark' ? 'text-white' : 'text-olive'
+            }`}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

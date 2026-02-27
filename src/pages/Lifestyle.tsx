@@ -55,7 +55,7 @@ const Lifestyle = () => {
     <div ref={containerRef} className="bg-[#0a0a0a] text-white overflow-hidden">
       
       {/* --- HERO: EL IMPACTO VISUAL --- */}
-      <section className="h-screen flex flex-col justify-center items-center relative overflow-hidden bg-[#0a0a0a]">
+      <section data-navbar-theme="dark" className="h-screen flex flex-col justify-center items-center relative overflow-hidden bg-[#0a0a0a]">
         <h1 className="text-[18vw] font-serif italic leading-none z-10 select-none mix-blend-difference">
           Lifestyle
         </h1>
@@ -73,7 +73,7 @@ const Lifestyle = () => {
       </section>
 
       {/* --- PANEL 1: MATERIALIDAD --- */}
-      <section className="panel min-h-screen flex items-center justify-center relative bg-[#0a0a0a] px-8 md:px-20 py-20">
+      <section data-navbar-theme="dark" className="panel min-h-screen flex items-center justify-center relative bg-[#0a0a0a] px-8 md:px-20 py-20">
         <div className="grid grid-cols-1 md:grid-cols-12 w-full max-w-7xl mx-auto items-center gap-8">
           <div className="md:col-span-5 relative">
             <h2 className="text-5xl md:text-7xl font-light leading-none mb-6">
@@ -97,7 +97,7 @@ const Lifestyle = () => {
       </section>
 
       {/* --- NUEVA SECCIÓN: BIENESTAR INTEGRAL --- */}
-      <section className="luxury-panel min-h-screen flex items-center justify-center relative bg-[#0a0a0a] overflow-hidden">
+      <section data-navbar-theme="dark" className="luxury-panel min-h-screen flex items-center justify-center relative bg-[#0a0a0a] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-transparent to-[#1a1a1a] z-0" />
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-8 md:px-20 py-32">
@@ -155,7 +155,7 @@ const Lifestyle = () => {
       </section>
 
       {/* --- NUEVA SECCIÓN: EXPERIENCIA GASTRONÓMICA --- */}
-      <section className="luxury-panel min-h-screen flex items-center justify-center relative bg-[#0f0f0f]">
+      <section data-navbar-theme="dark" className="luxury-panel min-h-screen flex items-center justify-center relative bg-[#0f0f0f]">
         <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
         
         <div className="w-full max-w-6xl mx-auto px-8 md:px-20 py-32">
@@ -210,7 +210,7 @@ const Lifestyle = () => {
       </section>
 
       {/* --- NUEVA SECCIÓN: CONEXIÓN CON LA NATURALEZA --- */}
-      <section className="luxury-panel min-h-screen flex items-center justify-center relative overflow-hidden">
+      <section data-navbar-theme="dark" className="luxury-panel min-h-screen flex items-center justify-center relative overflow-hidden">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1513584684374-8bab748fbf90?q=80&w=2068&auto=format&fit=crop"
@@ -252,7 +252,7 @@ const Lifestyle = () => {
       </section>
 
       {/* --- SECCIÓN FINAL: INVITACIÓN SUTIL --- */}
-      <section className="min-h-screen flex items-center justify-center relative bg-[#0a0a0a] overflow-hidden">
+      <section data-navbar-theme="dark" className="min-h-screen flex items-center justify-center relative bg-[#0a0a0a] overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 via-transparent to-transparent" />
         
         <div className="relative z-10 text-center px-8">

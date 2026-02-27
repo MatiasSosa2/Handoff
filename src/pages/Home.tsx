@@ -73,8 +73,8 @@ const Hero = () => {
               alt="" 
               className="w-full h-full object-cover"
             />
-            {/* Overlay oscuro sutil para garantizar legibilidad */}
-            <div className="absolute inset-0 bg-black/30" />
+            {/* Overlay muy sutil, solo para degradado en zona del texto */}
+            <div className="absolute inset-0 bg-black/10" />
           </div>
         ))}
       </div>
@@ -100,18 +100,27 @@ const Hero = () => {
         slide.position === 'center' ? 'justify-center' : 
         'justify-end'
       }`}>
-        <div className="hero-content max-w-xl text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>
+        <div className="hero-content max-w-xl text-white">
           {/* Subtítulo pequeño arriba */}
-          <div className="mb-6">
-            <span className="text-xs tracking-[0.3em] font-medium uppercase opacity-80">
+          <div className="mb-4">
+            <span
+              className="text-[10px] tracking-[0.5em] font-medium uppercase opacity-75"
+              style={{ textShadow: '0 1px 12px rgba(0,0,0,0.9), 0 2px 20px rgba(0,0,0,0.7)' }}
+            >
               Legacy Real Estate
             </span>
           </div>
           
           {/* Título principal */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif mb-6 leading-tight">
+          <h1
+            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight tracking-[-0.01em]"
+            style={{ textShadow: '0 2px 8px rgba(0,0,0,0.9), 0 8px 40px rgba(0,0,0,0.65), 0 16px 60px rgba(0,0,0,0.35)' }}
+          >
             {slide.title}
-            <span className="block text-2xl md:text-3xl font-light mt-4 opacity-95">
+            <span
+              className="block text-2xl md:text-3xl font-light mt-4 opacity-90 tracking-wide"
+              style={{ textShadow: '0 1px 8px rgba(0,0,0,0.9), 0 4px 24px rgba(0,0,0,0.6)' }}
+            >
               {slide.subtitle}
             </span>
           </h1>
@@ -119,7 +128,7 @@ const Hero = () => {
           {/* CTA Simple */}
           <Link
             to="/properties"
-            className="group inline-flex items-center gap-3 text-sm font-medium tracking-widest uppercase hover:opacity-90 transition-opacity duration-300"
+            className="group inline-flex items-center gap-3 text-sm font-medium tracking-widest uppercase bg-white text-neutral-900 px-8 py-3 hover:bg-white/90 transition-all duration-300"
           >
             <span>{slide.cta}</span>
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
