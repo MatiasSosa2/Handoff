@@ -12,6 +12,23 @@ La página [src/pages/Contact.tsx](src/pages/Contact.tsx) ahora queda pensada co
 
 La tabla se crea automáticamente al iniciar la API. Si querés crearla manualmente, tenés el script en [database/schema.sql](database/schema.sql).
 
+## Deploy en Vercel
+
+El frontend se puede desplegar directamente desde GitHub en Vercel. Para que los turnos funcionen en producción, Vercel debe tener configuradas variables de entorno reales para MySQL y no valores locales.
+
+Variables mínimas en Vercel:
+
+1. MYSQL_HOST
+2. MYSQL_PORT
+3. MYSQL_USER
+4. MYSQL_PASSWORD
+5. MYSQL_DATABASE
+6. VITE_GROQ_API_KEY si seguís usando el chatbot actual en cliente
+
+Importante: no uses 127.0.0.1 ni root/local password en Vercel. Necesitás una base MySQL accesible desde internet, por ejemplo Railway, Aiven, PlanetScale o similar.
+
+Las rutas /api en producción quedan servidas por funciones serverless dentro de [api/health.js](api/health.js), [api/appointments/index.js](api/appointments/index.js) y [api/appointments/[id]/status.js](api/appointments/[id]/status.js).
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
