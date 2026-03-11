@@ -9,7 +9,7 @@ const Breadcrumbs = () => {
     '/inversion': 'INVERSIÓN',
     '/propiedades': 'PROPIEDADES',
     '/lifestyle': 'LIFESTYLE',
-    '/contacto': 'CONTACTO',
+    '/contacto': 'TURNOS',
   };
 
   // Si estamos en home, no mostrar breadcrumbs

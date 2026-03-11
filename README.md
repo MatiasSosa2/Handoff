@@ -1,5 +1,17 @@
 # React + TypeScript + Vite
 
+## Turnos con MySQL local
+
+La página [src/pages/Contact.tsx](src/pages/Contact.tsx) ahora queda pensada como sistema de turnos. El frontend consume una API local en [server/index.js](server/index.js), y esa API persiste los registros en MySQL usando la configuración del archivo [.env.local](.env.local).
+
+### Inicio local
+
+1. Asegurá que MySQL esté corriendo en localhost:3306.
+2. Revisá las variables MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD y MYSQL_DATABASE en [.env.local](.env.local).
+3. Ejecutá npm run dev para levantar frontend y API al mismo tiempo.
+
+La tabla se crea automáticamente al iniciar la API. Si querés crearla manualmente, tenés el script en [database/schema.sql](database/schema.sql).
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

@@ -83,7 +83,7 @@ const Navbar = memo(() => {
     { name: 'Inversión', href: '/inversion' },
     { name: 'Propiedades', href: '/propiedades' },
     { name: 'Lifestyle', href: '/lifestyle' },
-    { name: 'Contacto', href: '/contacto' },
+    { name: 'Turnos', href: '/contacto' },
   ];
 
   return (

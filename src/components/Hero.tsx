@@ -66,7 +66,7 @@ const Hero = () => {
           
           <div className="hero-cta flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              to="/properties"
+              to="/propiedades"
               className={`px-10 py-4 font-bold tracking-widest transition-all duration-300 animate-pulse-subtle ${
                 slide.isDark 
                 ? 'bg-white text-charcoal hover:bg-gold hover:text-white' 

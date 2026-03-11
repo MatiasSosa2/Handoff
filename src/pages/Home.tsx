@@ -127,7 +127,7 @@ const Hero = () => {
           
           {/* CTA Simple */}
           <Link
-            to="/properties"
+            to="/propiedades"
             className="group inline-flex items-center gap-3 text-sm font-medium tracking-widest uppercase bg-white text-neutral-900 px-8 py-3 hover:bg-white/90 transition-all duration-300"
           >
             <span>{slide.cta}</span>
@@ -391,7 +391,7 @@ const FeaturedProperties = () => {
 
         <div className="text-center mt-20">
           <Link
-            to="/properties"
+            to="/propiedades"
             className="inline-flex items-center gap-3 text-sm font-medium tracking-widest text-white/80 hover:text-white transition-colors duration-300"
           >
             <span>Ver todas las propiedades</span>
@@ -575,10 +575,10 @@ const TestimonialsSection = () => {
       {/* CTA */}
       <div className="text-center mt-16 px-6">
         <Link
-          to="/contact"
+          to="/contacto"
           className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-white/30 text-white text-sm font-medium tracking-widest uppercase hover:bg-white/10 transition-colors duration-300"
         >
-          <span>Iniciar conversación</span>
+          <span>Reservar turno</span>
           <ChevronRight size={16} />
         </Link>
       </div>
@@ -600,16 +600,16 @@ const FinalCTA = () => {
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
           <Link
-            to="/properties"
+            to="/propiedades"
             className="px-8 py-4 bg-neutral-900 text-white text-sm font-medium tracking-widest uppercase hover:opacity-90 transition-opacity duration-300"
           >
             Explorar propiedades
           </Link>
           <Link
-            to="/contact"
+            to="/contacto"
             className="px-8 py-4 border border-neutral-900 text-neutral-900 text-sm font-medium tracking-widest uppercase hover:bg-neutral-900/5 transition-colors duration-300"
           >
-            Contactar asesor
+            Reservar turno
           </Link>
         </div>
       </div>

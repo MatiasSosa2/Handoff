@@ -199,6 +199,12 @@ export default defineConfig({
     exclude: ['@vite/client', '@vite/env'],
   },
   server: {
+    proxy: {
+      '/api': {
+        target: process.env.VITE_API_PROXY_TARGET || 'http://localhost:3301',
+        changeOrigin: true,
+      },
+    },
     // Faster HMR
     hmr: {
       overlay: false,

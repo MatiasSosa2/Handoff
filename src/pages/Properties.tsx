@@ -155,10 +155,10 @@ const Properties = () => {
             Accede a un portfolio selecto de propiedades que nunca llegan al mercado público. Para inversores que valoran la discreción.
           </p>
           <Link
-            to="/contact"
+            to="/contacto"
             className="inline-block px-12 py-5 bg-neutral-900 text-white font-bold tracking-wider hover:bg-neutral-800 hover:scale-105 transition-all duration-300 shadow-2xl"
           >
-            SOLICITAR ACCESO
+            RESERVAR REUNIÓN
           </Link>
         </div>
       </section>
