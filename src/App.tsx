@@ -4,12 +4,7 @@ import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import PageTransition from './components/PageTransition';
-import CustomCursor from './components/CustomCursor';
-import GlobalTexture from './components/GlobalTexture';
-import Breadcrumbs from './components/Breadcrumbs';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Chatbot from './components/Chatbot';
+import SiteLayout from './layouts/SiteLayout';
 import { preloadCriticalAssets } from './utils/imagePreloader';
 import { usePrefetch } from './hooks/usePrefetch';
 
@@ -66,49 +61,49 @@ function App() {
 
   return (
     <BrowserRouter>
-      <GlobalTexture />
-      <CustomCursor />
-      <Navbar />
-      <Chatbot />
-      <div className="min-h-screen">
-        <Breadcrumbs />
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={
-            <PageTransition>
-              <Home />
-            </PageTransition>
-          } />
-          <Route path="/inversion" element={
-            <PageTransition>
-              <Investment />
-            </PageTransition>
-          } />
-          <Route path="/propiedades" element={
-            <PageTransition>
-              <Properties />
-            </PageTransition>
-          } />
-          <Route path="/propiedad/:id" element={
-            <PageTransition>
-              <PropertyDetail />
-            </PageTransition>
-          } />
-          <Route path="/lifestyle" element={
-            <PageTransition>
-              <Lifestyle />
-            </PageTransition>
-          } />
-          <Route path="/contacto" element={
-            <PageTransition>
-              <Contact />
-            </PageTransition>
-          } />
-        </Routes>
-        </Suspense>
-        <Footer />
-      </div>
+      <AppShell />
     </BrowserRouter>
+  );
+}
+
+function AppShell() {
+  return (
+    <Suspense fallback={<PageLoader />}>
+      <Routes>
+        <Route element={<SiteLayout />}>
+            <Route path="/" element={
+              <PageTransition>
+                <Home />
+              </PageTransition>
+            } />
+            <Route path="/inversion" element={
+              <PageTransition>
+                <Investment />
+              </PageTransition>
+            } />
+            <Route path="/propiedades" element={
+              <PageTransition>
+                <Properties />
+              </PageTransition>
+            } />
+            <Route path="/propiedad/:id" element={
+              <PageTransition>
+                <PropertyDetail />
+              </PageTransition>
+            } />
+            <Route path="/lifestyle" element={
+              <PageTransition>
+                <Lifestyle />
+              </PageTransition>
+            } />
+            <Route path="/contacto" element={
+              <PageTransition>
+                <Contact />
+              </PageTransition>
+            } />
+          </Route>
+        </Routes>
+      </Suspense>
   );
 }
 
